@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Autentication } from '../../autentication/autentication';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     MatSlideToggleModule,
     CommonModule,
     FormsModule,
+    RouterModule
   ],
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
@@ -55,4 +56,9 @@ export class Login {
       }
     }
   }
+
+  goToRegister(): void {
+    this.router.navigate(['/register']);
+  }
+
 }

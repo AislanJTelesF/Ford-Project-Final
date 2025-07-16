@@ -14,35 +14,63 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname)));
 
-app.post("/login", async (req, res) => {
+app.post('/register', (req, res) => {
+  const { nome, senha, email } = req.body;
+
+  if (!nome || !senha || !email) {
+    return res.status(400).json({ message: 'Preencha todos os campos!' });
+  }
+
+  const userExists = users.some((u) => u.nome === nome || u.email === email);
+
+  if (userExists) {
+    return res.status(409).json({ message: 'Usuário ou e-mail já cadastrado!' });
+  }
+
+  const newUser = {
+    id: users.length + 1,
+    nome,
+    senha,
+    email,
+  };
+
+  users.push(newUser);
+
+  return res.status(201).json({ message: 'Usuário registrado com sucesso!', user: newUser });
+});
+
+
+app.post('/login', (req, res) => {
   try {
     const { nome, senha } = req.body;
 
     if (!nome || !senha) {
       return res.status(400).json({
-        message: "O campo de usuário ou senha não foi preenchido!",
+        message: 'O campo de usuário ou senha não foi preenchido!',
       });
     }
 
-    if (nome !== "admin" || senha !== "123456") {
+    const foundUser = users.find((u) => u.nome === nome && u.senha === senha);
+
+    if (!foundUser) {
       return res.status(401).json({
-        message:
-          "O nome de usuário ou senha está incorreto ou não foi cadastrado!",
+        message: 'Usuário ou senha incorretos ou não registrados!',
       });
     }
 
     return res.status(200).json({
-      id: 1,
-      nome: "admin",
-      email: "admin@email.com",
+      id: foundUser.id,
+      nome: foundUser.nome,
+      email: foundUser.email,
     });
   } catch (error) {
     return res.status(500).json({
-      message: "Falha na comunicação com o servidor!",
+      message: 'Falha na comunicação com o servidor!',
       error: String(error),
     });
   }
 });
+
 
 app.get("/vehicles", (req, res) => {
   try {

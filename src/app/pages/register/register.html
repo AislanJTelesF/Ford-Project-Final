@@ -1,0 +1,83 @@
+<div class="container-fluid vh-100 d-flex align-items-center">
+  <div class="row w-100">
+
+    <!-- Left Image -->
+    <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center imagem">
+      <img src="img/mustang.png" class="img-fluid" alt="Imagem Mustang" />
+    </div>
+
+    <!-- Right Register Form -->
+    <div class="col-md-6 d-flex align-items-center justify-content-center login-box">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="w-75 p-4 shadow rounded bg-white">
+
+        <!-- Logo -->
+        <div class="text-center mb-4 img-logo">
+          <img src="img/ford.png" alt="Logo Ford" class="img-fluid" style="width: 200px;" />
+        </div>
+
+        <h4 class="text-center text-primary mb-4">Criar Conta</h4>
+
+        <!-- Username -->
+        <div class="mb-3 d-flex align-items-center">
+          <label for="username" class="form-label me-2">
+            <mat-icon>person</mat-icon>
+          </label>
+          <input type="text" id="username" class="form-control" placeholder="Usuário" formControlName="username" />
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3 d-flex align-items-center">
+          <label for="email" class="form-label me-2">
+            <mat-icon>email</mat-icon>
+          </label>
+          <input type="email" id="email" class="form-control" placeholder="Email" formControlName="email" />
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3 d-flex align-items-center">
+          <label for="password" class="form-label me-2">
+            <mat-icon>lock</mat-icon>
+          </label>
+          <input type="password" id="password" class="form-control" placeholder="Senha" formControlName="password" />
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-3 d-flex align-items-center">
+          <label for="confirmPassword" class="form-label me-2">
+            <mat-icon>lock</mat-icon>
+          </label>
+          <input type="password" id="confirmPassword" class="form-control" placeholder="Confirmar senha"
+            formControlName="confirmPassword" />
+        </div>
+
+        <!-- Submit -->
+        <div class="text-center">
+          <button class="btn btn-primary w-100" type="submit" [disabled]="registerForm.invalid">Registrar</button>
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label class="form-label">Usuário</label>
+            <input type="text" formControlName="user" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Senha</label>
+            <input type="password" formControlName="password" class="form-control" />
+          </div>
+          <div *ngIf="userExists" class="text-danger mb-3">
+            Este usuário já está registrado.
+          </div>
+          <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">
+            Registrar
+          </button>
+        </form>
+
+        <!-- Already registered -->
+        <div class="text-center mt-3">
+          <a routerLink="/login" class="text-primary" style="text-decoration: none;">Já tem uma conta? Login</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

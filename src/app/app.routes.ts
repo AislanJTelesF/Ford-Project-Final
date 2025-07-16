@@ -26,4 +26,12 @@ export const routes: Routes = [
       import('./pages/dashboard/dashboard').then((m) => m.Dashboard),
     title: 'Dashboard',
   },
+
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./pages/register/register').then((m) => m.Register),
+    title: 'Registrar',
+  },
+
 ];
