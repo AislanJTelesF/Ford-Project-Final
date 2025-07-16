@@ -1,0 +1,110 @@
+<app-side-bar></app-side-bar>
+
+<!-- Main Container -->
+<div class="container-fluid vh-100 d-flex flex-column justify-content-start align-items-center"
+  style="margin-top: 60px; overflow: visible;">
+
+  <h1 class="text-primary">Dashboard FORD</h1>
+
+  <!-- 4 Boxes -->
+  <div class="container-fluid pt-5 mt-2">
+    <div class="row g-4 justify-content-center">
+      <!-- Box 1: Veículo -->
+      <div class="col-md-3">
+        <div class="card p-3 text-center h-100">
+          <h5 class="card-title">Veículo</h5>
+          <form [formGroup]="selectCarForms">
+            <select formControlName="carId" class="form-select mb-2">
+              <option value="" disabled selected>Selecione o veículo</option>
+              <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+                {{ vehicle.vehicle }}
+              </option>
+            </select>
+          </form>
+          <img *ngIf="selectedVehicle?.img" [src]="selectedVehicle.img" class="img-fluid mx-auto d-block"
+            style="max-height: 100px;" />
+        </div>
+      </div>
+
+      <!-- Box 2: Total de Vendas -->
+      <div class="col-md-3">
+        <div class="card p-3 text-center h-100">
+          <h5 class="card-title">Total de Vendas</h5>
+          <p class="card-text display-6 text-primary " *ngIf="selectedVehicle?.volumetotal">
+            {{ selectedVehicle.volumetotal || '-' }}
+          </p>
+          <h6 *ngIf="selectedVehicle?.volumetotal">Unid.</h6>
+        </div>
+      </div>
+
+      <!-- Box 3: Conectados -->
+      <div class="col-md-3">
+        <div class="card p-3 text-center h-100">
+          <h5 class="card-title">Conectados</h5>
+          <p class="card-text display-6 text-primary" *ngIf="selectedVehicle?.connected">
+            {{ selectedVehicle.connected || '-' }}
+          </p>
+          <h6 *ngIf="selectedVehicle?.connected">Unid.</h6>
+        </div>
+      </div>
+
+      <!-- Box 4: Atualizações de Software -->
+      <div class="col-md-3">
+        <div class="card p-3 text-center h-100">
+          <h5 class="card-title">Update Software</h5>
+          <p class="card-text display-6 text-primary" *ngIf="selectedVehicle?.softwareUpdates">
+            {{ selectedVehicle.softwareUpdates || '-' }}
+          </p>
+          <h6 *ngIf="selectedVehicle?.softwareUpdates">Unid.</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Center Vehicle Image -->
+  <div class="opacity-10 mt-5">
+    <img *ngIf="selectedVehicle" [src]="selectedVehicle.img" class="img-fluid" style="max-height: 400px;"
+      alt="Veículo central">
+  </div>
+
+ <form [formGroup]="vinForm" class="d-flex mb-3">
+  <input
+    type="text"
+    class="form-control me-2 text-center text-primary"
+    [formControl]="vinForm.controls.vin"
+    placeholder="Insira o código VIN" style="width: 300px;"
+  />
+  <span class="input-group-text bg-primary text-white">
+      <mat-icon>search</mat-icon>
+    </span>
+</form>
+
+  <div class="container-fluid pt-5 mt-2">
+  <div class="table-responsive">
+    <table class="table table-bordered text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>Id</th>
+          <th>Odômetro</th>
+          <th>Nível de Combustível</th>
+          <th>Status</th>
+          <th>Lat.</th>
+          <th>Long.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ carroVin?.id || '-' }}</td>
+          <td>{{ carroVin?.odometro || '-' }}</td>
+          <td>{{ carroVin?.nivelCombustivel || '-' }}</td>
+          <td>{{ carroVin?.status || '-' }}</td>
+          <td>{{ carroVin?.lat || '-' }}</td>
+          <td>{{ carroVin?.long || '-' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+</div>

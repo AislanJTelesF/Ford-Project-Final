@@ -1,0 +1,71 @@
+/* Top bar */
+.top-bar {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Main container */
+.container-fluid {
+  margin-top: 20px;
+}
+
+/* Main content */
+.col-md-9 {
+  padding: 2rem;
+}
+
+/* Sidebar styling */
+.col-md-3 {
+  background-color: #f8f9fa;
+  border-left: 1px solid #dee2e6;
+  padding: 2rem;
+}
+
+/* Sidebar list */
+.list-group-item {
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.list-group-item:hover {
+  background-color: #e9ecef;
+}
+
+/* Logout button */
+.btn-outline-danger {
+  font-weight: 500;
+}
+
+/* Modal styling */
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background-color: #007bff;
+  color: white;
+  border-bottom: none;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.modal-body {
+  font-size: 1.1rem;
+}
+
+.modal-footer .btn {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.modal-footer .btn:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}

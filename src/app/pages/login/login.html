@@ -1,0 +1,61 @@
+<div class="container-fluid vh-100 d-flex align-items-center">
+  <div class="row w-100">
+
+    <!-- Left Image Section -->
+    <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center imagem">
+      <img src="img/ranger.png" class="img-fluid" alt="Imagem Ranger">
+    </div>
+
+    <!-- Right Login Form -->
+    <div class="col-md-6 d-flex align-items-center justify-content-center login-box">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-75 p-4 shadow rounded bg-white">
+
+        <!-- Logo -->
+        <div class="text-center mb-4 img-logo">
+          <img src="img/ford.png" alt="Logo Ford" class="img-fluid" style="width: 200px;">
+        </div>
+
+        <h4 class="text-center text-primary mb-4">Boas Vindas</h4>
+
+        <div class="login-box2">
+          <!-- User Field -->
+          <div class="mb-3 d-flex align-items-center">
+            <label for="exampleInputUser" class="form-label me-2">
+              <mat-icon class="mat-18">person</mat-icon>
+            </label>
+            <input type="text" id="exampleInputUser" class="form-control" placeholder="Login" formControlName="user"
+              [(ngModel)]="user" aria-describedby="userHelp" />
+          </div>
+
+          <!-- Password Field -->
+          <div class="mb-3 d-flex align-items-center">
+            <label for="exampleInputPassword1" class="form-label me-2">
+              <mat-icon class="mat-18">lock</mat-icon>
+            </label>
+            <input type="password" id="exampleInputPassword1" class="form-control" placeholder="Senha"
+              formControlName="password" />
+          </div>
+
+          <!-- Toggle -->
+          <div class="form-check text-end mb-3">
+            <mat-slide-toggle class="form-check-label" labelPosition="before" color="primary"
+              formControlName="autoLogin">
+              Logar automaticamente
+            </mat-slide-toggle>
+          </div>
+
+          <!-- Button and Error -->
+          <div class="button text-center">
+            <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">
+              Entrar
+            </button>
+            <div class="text-danger mt-2" *ngIf="loginError">
+              Usuário ou senha inválidos.
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
