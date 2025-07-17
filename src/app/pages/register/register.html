@@ -50,27 +50,15 @@
             formControlName="confirmPassword" />
         </div>
 
-        <!-- Submit -->
-        <div class="text-center">
-          <button class="btn btn-primary w-100" type="submit" [disabled]="registerForm.invalid">Registrar</button>
+        <!-- User exists error -->
+        <div class="text-danger mt-2" *ngIf="userExists">
+          Este usuário já está registrado.
         </div>
 
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-          <div class="mb-3">
-            <label class="form-label">Usuário</label>
-            <input type="text" formControlName="user" class="form-control" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Senha</label>
-            <input type="password" formControlName="password" class="form-control" />
-          </div>
-          <div *ngIf="userExists" class="text-danger mb-3">
-            Este usuário já está registrado.
-          </div>
-          <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">
-            Registrar
-          </button>
-        </form>
+        <!-- Submit -->
+        <div class="text-center mt-3">
+          <button class="btn btn-primary w-100" type="submit" [disabled]="registerForm.invalid">Registrar</button>
+        </div>
 
         <!-- Already registered -->
         <div class="text-center mt-3">
@@ -81,3 +69,4 @@
     </div>
   </div>
 </div>
+

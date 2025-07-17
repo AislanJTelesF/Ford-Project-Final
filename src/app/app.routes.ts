@@ -30,7 +30,7 @@ export const routes: Routes = [
   {
     path: 'register',
     loadComponent: () =>
-      import('./pages/register/register').then((m) => m.Register),
+      import('./pages/register/register').then((m) => m.RegisterComponent),
     title: 'Registrar',
   },
 

@@ -16,14 +16,13 @@ import { SuccessDialogComponent } from '../../success-dialog.component/success-d
   selector: 'app-register',
   templateUrl: './register.html',
   styleUrls: ['./register.css'],
-  imports: [MatIconModule, ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [MatIconModule, ReactiveFormsModule, CommonModule, FormsModule, RouterModule],
 })
 export class RegisterComponent {
   registerForm: FormGroup;
   userExists = false;
 
   private users = [{ user: 'admin', password: '123456' }];
-userAlreadyExists: any;
 
   constructor(private fb: FormBuilder, private router: Router, private dialog: MatDialog) {
     this.registerForm = this.fb.group({
