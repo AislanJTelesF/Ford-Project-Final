@@ -1,8 +1,12 @@
+// app/api/api.js
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
 
 const app = express();
+
+// Initialize the users array here
+const users = []; // This line was missing and is crucial for storing user data.
 
 app.get("/", (req, res) => {
   res.send("API da Ford está rodando 🚗✅");

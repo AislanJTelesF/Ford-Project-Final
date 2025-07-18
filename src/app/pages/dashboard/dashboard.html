@@ -3,8 +3,12 @@
 <!-- Main Container -->
 <div class="container-fluid vh-100 d-flex flex-column justify-content-start align-items-center"
   style="margin-top: 60px; overflow: visible;">
+  <div class="d-flex flex-column align-items-center">
+    <h1 class="text-primary">Dashboard FORD</h1>
 
-  <h1 class="text-primary">Dashboard FORD</h1>
+    <h4 class="">Nessa página é possível obter mais informações sobre o modelo de carros </h4>
+  </div>
+  
 
   <!-- 4 Boxes -->
   <div class="container-fluid pt-5 mt-2">
@@ -28,7 +32,8 @@
 
       <!-- Box 2: Total de Vendas -->
       <div class="col-md-3">
-        <div class="card p-3 text-center h-100">
+        <div class="card p-3 text-center h-100 justify-content-center align-items-center">
+          <mat-icon class="mat-18"> show_chart</mat-icon>
           <h5 class="card-title">Total de Vendas</h5>
           <p class="card-text display-6 text-primary " *ngIf="selectedVehicle?.volumetotal">
             {{ selectedVehicle.volumetotal || '-' }}
@@ -39,7 +44,8 @@
 
       <!-- Box 3: Conectados -->
       <div class="col-md-3">
-        <div class="card p-3 text-center h-100">
+        <div class="card p-3 text-center h-100 justify-content-center align-items-center">
+          <mat-icon class="mat-18"> rss_feed</mat-icon>
           <h5 class="card-title">Conectados</h5>
           <p class="card-text display-6 text-primary" *ngIf="selectedVehicle?.connected">
             {{ selectedVehicle.connected || '-' }}
@@ -50,7 +56,8 @@
 
       <!-- Box 4: Atualizações de Software -->
       <div class="col-md-3">
-        <div class="card p-3 text-center h-100">
+        <div class="card p-3 text-center h-100 justify-content-center align-items-center">
+          <mat-icon>cloud_download</mat-icon> 
           <h5 class="card-title">Update Software</h5>
           <p class="card-text display-6 text-primary" *ngIf="selectedVehicle?.softwareUpdates">
             {{ selectedVehicle.softwareUpdates || '-' }}
@@ -104,7 +111,4 @@
       </tbody>
     </table>
   </div>
-</div>
-
-
 </div>

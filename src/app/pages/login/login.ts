@@ -1,3 +1,4 @@
+// app/pages/login/login.ts
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -46,19 +47,31 @@ export class Login {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { user, password } = this.loginForm.value;
-      const isAuthenticated = this.authService.login(user, password);
 
-      if (isAuthenticated) {
-        this.loginError = false;
-        this.router.navigate(['/home']);
-      } else {
-        this.loginError = true;
-      }
+      // CORRECTED: Subscribe to the Observable returned by authService.login
+      this.authService.login(user, password).subscribe(
+        (response) => {
+          if (response.success) {
+            // Login bem-sucedido
+            this.loginError = false;
+            this.router.navigate(['/home']);
+          } else {
+            // Login falhou (credenciais incorretas ou outro erro do backend)
+            this.loginError = true;
+            console.error('Login failed:', response.error); // Log the specific error from backend
+          }
+        },
+        (error) => {
+          // Erro na comunicação com o serviço (ex: servidor offline)
+          this.loginError = true;
+          console.error('Login failed due to network or server error:', error);
+          // Opcional: exibir uma mensagem de erro mais genérica para o usuário
+        }
+      );
     }
   }
 
   goToRegister(): void {
     this.router.navigate(['/register']);
   }
-
 }
