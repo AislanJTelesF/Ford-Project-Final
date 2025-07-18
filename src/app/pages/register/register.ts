@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'; // Import MatDialogModule here
 import { SuccessDialogComponent } from '../../success-dialog.component/success-dialog.component';
 import { Autentication } from '../../autentication/autentication';
+import { SideBar } from '../../side-bar/side-bar';
 
 export function passwordsMatchValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -33,7 +34,7 @@ export function passwordsMatchValidator(): ValidatorFn {
   templateUrl: './register.html',
   styleUrls: ['./register.css'],
   // Ensure MatDialogModule is in the imports array
-  imports: [MatIconModule, ReactiveFormsModule, CommonModule, FormsModule, RouterModule, MatDialogModule],
+  imports: [MatIconModule, ReactiveFormsModule, CommonModule, FormsModule, RouterModule, MatDialogModule, SideBar],
 })
 export class RegisterComponent {
   registerForm: FormGroup;

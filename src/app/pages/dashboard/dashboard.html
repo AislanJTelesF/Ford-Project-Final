@@ -1,17 +1,16 @@
 <app-side-bar></app-side-bar>
 
 <!-- Main Container -->
-<div class="container-fluid vh-100 d-flex flex-column justify-content-start align-items-center"
-  style="margin-top: 60px; overflow: visible;">
+<div class="container-fluid d-flex flex-column justify-content-start align-items-center">
   <div class="d-flex flex-column align-items-center">
     <h1 class="text-primary">Dashboard FORD</h1>
 
     <h4 class="">Nessa página é possível obter mais informações sobre o modelo de carros </h4>
   </div>
-  
+
 
   <!-- 4 Boxes -->
-  <div class="container-fluid pt-5 mt-2">
+  <div class="container-fluid pt-3 mt-1">
     <div class="row g-4 justify-content-center">
       <!-- Box 1: Veículo -->
       <div class="col-md-3">
@@ -33,7 +32,7 @@
       <!-- Box 2: Total de Vendas -->
       <div class="col-md-3">
         <div class="card p-3 text-center h-100 justify-content-center align-items-center">
-          <mat-icon class="mat-18"> show_chart</mat-icon>
+          <mat-icon class="mat-18 text-primary"> show_chart</mat-icon>
           <h5 class="card-title">Total de Vendas</h5>
           <p class="card-text display-6 text-primary " *ngIf="selectedVehicle?.volumetotal">
             {{ selectedVehicle.volumetotal || '-' }}
@@ -45,7 +44,7 @@
       <!-- Box 3: Conectados -->
       <div class="col-md-3">
         <div class="card p-3 text-center h-100 justify-content-center align-items-center">
-          <mat-icon class="mat-18"> rss_feed</mat-icon>
+          <mat-icon class="mat-18 text-primary"> rss_feed</mat-icon>
           <h5 class="card-title">Conectados</h5>
           <p class="card-text display-6 text-primary" *ngIf="selectedVehicle?.connected">
             {{ selectedVehicle.connected || '-' }}
@@ -57,7 +56,7 @@
       <!-- Box 4: Atualizações de Software -->
       <div class="col-md-3">
         <div class="card p-3 text-center h-100 justify-content-center align-items-center">
-          <mat-icon>cloud_download</mat-icon> 
+          <mat-icon class="mat-18 text-primary">cloud_download</mat-icon>
           <h5 class="card-title">Update Software</h5>
           <p class="card-text display-6 text-primary" *ngIf="selectedVehicle?.softwareUpdates">
             {{ selectedVehicle.softwareUpdates || '-' }}
@@ -70,11 +69,10 @@
 
   <!-- Center Vehicle Image -->
   <div class="opacity-10 mt-5">
-    <img *ngIf="selectedVehicle" [src]="selectedVehicle.img" class="img-fluid" style="max-height: 400px;"
-      alt="Veículo central">
+    <img *ngIf="selectedVehicle" [src]="selectedVehicle.img" class="img-fluid d-block mx-auto w-50" alt="Veículo central">
   </div>
 
- <form [formGroup]="vinForm" class="d-flex mb-3">
+ <form [formGroup]="vinForm" class="d-flex mb-3 mt-3">
   <input
     type="text"
     class="form-control me-2 text-center text-primary"

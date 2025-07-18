@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SideBar } from '../../side-bar/side-bar';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     MatSlideToggleModule,
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    SideBar
   ],
   templateUrl: './login.html',
   styleUrls: ['./login.css'],

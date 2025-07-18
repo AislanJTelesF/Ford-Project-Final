@@ -20,4 +20,13 @@ export class SideBar {
   loginButton(): void {
     this.router.navigate(['/login']);
   }
+  comparacaoButton(): void {
+    this.router.navigate(['/comparacao'])
+  }
+  vistaButton(): void {
+    this.router.navigate(['/visita'])
+  }
+  logoutButton(): void {
+    this.router.navigate(['/home'])
+  }
 }
