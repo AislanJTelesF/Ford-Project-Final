@@ -1,13 +1,37 @@
 <app-side-bar></app-side-bar>
 
-<div class="container-fluid vh-100 d-flex align-items-center justify-content-center"
-  style="background: url('img/ranger.png') no-repeat center;">
-  <div class="bg-white bg-opacity-75 rounded shadow p-4 justify-content-center align-items-center"
-    style="max-width: 600px; width: 90%;">
-    <h2 class="text-center">Bem-vindo(a) à Ford!</h2>
-    <h3 class="text-center">É um prazer ter você conosco. Aqui na Ford, unimos inovação, tradição e paixão por criar
-      experiências que vão além da direção. Nosso compromisso é proporcionar soluções inteligentes, conectadas e
-      voltadas para o seu estilo de vida — seja você um entusiasta por desempenho, tecnologia ou conforto.</h3>
-  </div>
+<div class="container">
+  <!-- Carousel -->
+  <main>
+    <div id="carousel" class="carousel position-relative text-center">
+      <div class="carousel__slide">
+        <img id="carousel__imagem" [src]="carousel[currentIndex].imagem" alt="Imagem do Carrossel" class="img-fluid" />
 
+        <div class="carousel__legenda mt-3">
+          <p id="carousel__paragrafo">{{ carousel[currentIndex].texto }}</p>
+          <a id="carousel__link" [href]="carousel[currentIndex].link">Acesse para saber mais</a>
+        </div>
+      </div>
+
+      <button class="anterior btn btn-light position-absolute start-0 top-50 translate-middle-y"
+              (click)="slideAnterior()">&#10094;</button>
+      <button class="proximo btn btn-light position-absolute end-0 top-50 translate-middle-y"
+              (click)="slideProximo()">&#10095;</button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-5 text-center">
+    <nav id="social" class="mb-3">
+      <ul class="list-inline">
+        <li class="list-inline-item"><span class="redesociais">Redes Sociais</span></li>
+        <li class="list-inline-item"><a href="#" title="Facebook"><img src="assets/img/facebook-50.png" /></a></li>
+        <li class="list-inline-item"><a href="#" title="YouTube"><img src="assets/img/youtube-squared-50.png" /></a></li>
+        <li class="list-inline-item"><a href="#" title="Instagram"><img src="assets/img/instagram-logo-50.png" /></a></li>
+      </ul>
+    </nav>
+    <div>
+      <img src="assets/img/ford-96.png" width="70" />
+    </div>
+  </footer>
 </div>
