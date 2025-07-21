@@ -18,18 +18,18 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   // Array de dados do carrossel com caminhos para a pasta 'assets/img/'
   carousel = [
     {
-      imagem: '/src/assets/img/imagem_1.jpg', // CAMINHO CORRETO PARA IMAGENS EM src/assets/img/
+      imagem: '/assets/img/imagem_1.jpg', // CAMINHO CORRETO PARA IMAGENS EM src/assets/img/
       texto: 'Esta é a nova Ranger Ford 2022. Verifique novidades.',
       link: '/lancamento',
     },
     {
-      imagem: 'assets/img/imagem_2.jpg', // CAMINHO CORRETO PARA IMAGENS EM src/assets/img/
+      imagem: '/assets/img/imagem_2.jpg', // CAMINHO CORRETO PARA IMAGENS EM src/assets/img/
       texto: 'Ford: a nossa história.',
       link: '#',
     },
     {
-      imagem: 'assets/img/imagem_3.jpg', // CAMINHO CORRETO PARA IMAGENS EM src/assets/img/
-      texto: 'Nova Ford Bronco Sport 2022',
+      imagem: '/assets/img/imagem_3.jpg', // CAMINHO CORRETO PARA IMAGENS EM src/assets/img/
+      texto: 'Nova Ford Bronco Sport 2022.',
       link: '/lancamento',
     },
   ];

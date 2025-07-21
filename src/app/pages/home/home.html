@@ -6,6 +6,13 @@
 <div class="container">
   <!-- Carousel -->
   <main>
+
+    <div class="d-flex flex-column align-items-center">
+      <h1 class="text-primary">Home FORD</h1>
+
+      <h4 class=""></h4>
+    </div>
+
     <div id="carousel" class="carousel position-relative text-center">
       <div class="carousel__slide">
         <!-- O [src] se liga à propriedade 'imagem' do item atual do carrossel no TS -->
@@ -13,7 +20,7 @@
 
         <div class="carousel__legenda mt-3">
           <!-- O texto e o link também se ligam às propriedades do item atual do carrossel -->
-          <p id="carousel__paragrafo">{{ carousel[currentIndex].texto }}</p>
+          <h5 id="carousel__paragrafo" class="text-primary">{{ carousel[currentIndex].texto }}</h5>
           <a id="carousel__link" [href]="carousel[currentIndex].link">Acesse para saber mais</a>
         </div>
       </div>
