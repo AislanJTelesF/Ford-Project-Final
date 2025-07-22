@@ -12,10 +12,10 @@ import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog'; // Import MatDialogModule here
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SuccessDialogComponent } from '../../success-dialog.component/success-dialog.component';
 import { Autentication } from '../../autentication/autentication';
-import { SideBar } from '../../side-bar/side-bar';
+import { SideBar } from '../../side-bar/side-bar'; // Importe o SideBar
 
 export function passwordsMatchValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -33,8 +33,15 @@ export function passwordsMatchValidator(): ValidatorFn {
   selector: 'app-register',
   templateUrl: './register.html',
   styleUrls: ['./register.css'],
-  // Ensure MatDialogModule is in the imports array
-  imports: [MatIconModule, ReactiveFormsModule, CommonModule, FormsModule, RouterModule, MatDialogModule, SideBar],
+  imports: [
+    MatIconModule,
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    MatDialogModule,
+    SideBar // Adicione SideBar aqui
+  ],
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -71,21 +78,27 @@ export class RegisterComponent {
     this.autenticationService.register(username, password, email).subscribe(
       (response) => {
         if (response.success) {
-          // Open the success dialog
-          this.dialog.open(SuccessDialogComponent).afterClosed().subscribe(() => {
-            // After the dialog is closed, navigate and reset the form
+          this.dialog.open(SuccessDialogComponent, {
+            data: { type: 'register' }
+          }).afterClosed().subscribe(() => {
             this.router.navigate(['/login']);
             this.registerForm.reset();
           });
         } else {
           if (response.error === 'Usuário ou e-mail já cadastrado!') {
             this.userExists = true;
+            this.dialog.open(SuccessDialogComponent, {
+              data: { message: 'Usuário ou e-mail já cadastrado!', type: 'error' }
+            });
           }
         }
       },
       (error) => {
         console.error('Registration failed:', error);
-        this.userExists = true; // Display a generic error if backend communication fails
+        this.userExists = true;
+        this.dialog.open(SuccessDialogComponent, {
+          data: { message: 'Falha no registro. Tente novamente mais tarde.', type: 'error' }
+        });
       }
     );
   }

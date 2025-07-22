@@ -1,12 +1,16 @@
 // app/success-dialog.component/success-dialog.component.ts
-import { Component } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog'; // Importar MatDialogModule
-import { MatButtonModule } from '@angular/material/button'; // Importar MatButtonModule
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common'; // Importar CommonModule para *ngIf
 
 @Component({
   selector: 'app-success-dialog',
-  standalone: true, // Adicionar standalone: true
-  imports: [MatDialogModule, MatButtonModule], // Adicionar os módulos necessários
-  templateUrl: './success-dialog.component.html', // CORRIGIDO: Usar templateUrl para referenciar o arquivo HTML
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule, CommonModule], // Adicionar CommonModule
+  templateUrl: './success-dialog.component.html',
 })
-export class SuccessDialogComponent {}
+export class SuccessDialogComponent {
+  // A propriedade 'data' agora pode incluir 'message' e 'type'
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { message?: string, type: 'register' | 'schedule' | 'error' }) {}
+}

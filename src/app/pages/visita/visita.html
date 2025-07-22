@@ -1,1 +1,67 @@
+<!-- app/pages/visita/visita.component.html -->
 <app-side-bar></app-side-bar>
+
+<div class="container mt-5 pt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg p-4">
+        <div class="text-center mb-4 img-logo ">
+            <img src="/assets/img/ford.png" alt="Logo Ford" class="img-fluid" style="width: 200px;">
+        </div>
+        <h2 class="card-title text-center text-primary mb-4">Agendar Visita à Loja</h2>
+        <form [formGroup]="visitForm" (ngSubmit)="onSubmit()">
+          <!-- Campo de Data -->
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Data da Visita</mat-label>
+            <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date" required>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="visitForm.get('date')?.hasError('required') && visitForm.get('date')?.touched">
+              Data é obrigatória.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Campo de Horário -->
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Horário</mat-label>
+            <mat-select formControlName="time" required>
+              <mat-option *ngFor="let time of availableTimes" [value]="time">
+                {{ time }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="visitForm.get('time')?.hasError('required') && visitForm.get('time')?.touched">
+              Horário é obrigatório.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Campo de Loja -->
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Loja</mat-label>
+            <mat-select formControlName="store" required>
+              <mat-option *ngFor="let store of stores" [value]="store">
+                {{ store }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="visitForm.get('store')?.hasError('required') && visitForm.get('store')?.touched">
+              Loja é obrigatória.
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Campo de Requisições do Usuário -->
+          <mat-form-field appearance="outline" class="w-100 mb-4">
+            <mat-label>Requisições Adicionais (Opcional)</mat-label>
+            <textarea matInput formControlName="requests" rows="4"></textarea>
+          </mat-form-field>
+
+          <!-- Botão de Envio -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg w-75" [disabled]="visitForm.invalid">
+              Agendar Visita
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

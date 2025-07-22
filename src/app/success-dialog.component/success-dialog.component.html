@@ -1,6 +1,23 @@
-<h2 mat-dialog-title style="text-align: center;">Parabéns!</h2>
-<mat-dialog-content style="text-align: center;">Você foi registrado com sucesso!</mat-dialog-content>
+<!-- app/success-dialog.component/success-dialog.component.html -->
+
+<!-- Conteúdo para Registro -->
+<ng-container *ngIf="data.type === 'register'">
+  <h2 mat-dialog-title style="text-align: center;">Parabéns!</h2>
+  <mat-dialog-content style="text-align: center;">Você foi registrado com sucesso!</mat-dialog-content>
+</ng-container>
+
+<!-- Conteúdo para Agendamento ou outros sucessos genéricos -->
+<ng-container *ngIf="data.type === 'schedule'">
+  <h2 mat-dialog-title style="text-align: center;">Sucesso!</h2>
+  <mat-dialog-content style="text-align: center;">{{ data.message }}</mat-dialog-content>
+</ng-container>
+
+<!-- Conteúdo para Erros/Alertas -->
+<ng-container *ngIf="data.type === 'error'">
+  <h2 mat-dialog-title style="text-align: center; color: red;">Atenção!</h2>
+  <mat-dialog-content style="text-align: center;">{{ data.message }}</mat-dialog-content>
+</ng-container>
+
 <mat-dialog-actions align="center">
   <button mat-button mat-dialog-close>OK</button>
 </mat-dialog-actions>
-
