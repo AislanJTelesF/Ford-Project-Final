@@ -1,3 +1,4 @@
+<!-- app/side-bar/side-bar.html -->
 <nav class="navbar">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -7,13 +8,14 @@
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
         <div class="text-center mb-4 img-logo ">
-          <img src="img/ford.png" alt="Logo Ford" class="img-fluid" style="width: 200px;">
+          <img src="/assets/img/ford.png" alt="Logo Ford" class="img-fluid" style="width: 200px;">
         </div>
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <!-- Itens de navegação principais (sempre visíveis) -->
           <li class="nav-item d-flex align-items-center">
             <label class="form-label me-2 text-primary">
               <mat-icon class="mat-18">home</mat-icon>
@@ -38,13 +40,26 @@
             </label>
             <button class="nav-link" (click)="vistaButton()">Visitar Loja</button>
           </li>
-          <li class="nav-item d-flex align-items-center">
-            <label class="form-label me-2 text-primary">
-              <mat-icon class="mat-18">login</mat-icon>
-            </label>
-            <button class="nav-link" (click)="loginButton()">Login</button>
-          </li>
-          <li class="nav-item d-flex align-items-center">
+
+          <!-- Botões de autenticação condicional -->
+          <!-- Mostra Login e Registrar APENAS se o usuário NÃO estiver logado -->
+          <ng-container *ngIf="!isLoggedIn">
+            <li class="nav-item d-flex align-items-center">
+              <label class="form-label me-2 text-primary">
+                <mat-icon class="mat-18">login</mat-icon>
+              </label>
+              <button class="nav-link" (click)="loginButton()">Login</button>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+              <label class="form-label me-2 text-primary">
+                <mat-icon class="mat-18">person_add</mat-icon>
+              </label>
+              <button class="nav-link" (click)="registerButton()">Registrar</button> <!-- CORRIGIDO AQUI -->
+            </li>
+          </ng-container>
+
+          <!-- Mostra Logout APENAS se o usuário estiver logado -->
+          <li class="nav-item d-flex align-items-center" *ngIf="isLoggedIn">
             <label class="form-label me-2 text-primary">
               <mat-icon class="mat-18">logout</mat-icon>
             </label>

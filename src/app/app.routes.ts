@@ -37,7 +37,7 @@ export const routes: Routes = [
   {
     path: 'comparacao',
     loadComponent: () =>
-      import('./pages/comparacao/comparacao').then((m) => m.Comparacao),
+      import('./pages/comparacao/comparacao').then((m) => m.ComparacaoComponent),
     title: 'Comparar Carros',
   },
 
