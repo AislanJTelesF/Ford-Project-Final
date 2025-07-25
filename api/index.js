@@ -228,6 +228,13 @@ app.post("/api/vehicleData", (req, res) => {
   }
 });
 
+
+if(process.env.NODE_ENV !== 'production') {
+  app.listen(3001, () => {
+    console.log("API rodando localmente em http://localhost:3001/");
+  });
+}
+
 // app.listen(3001, () => { // REMOVIDO: Vercel gerencia a porta
 //   console.log("API running on http://localhost:3001/");
 // });
