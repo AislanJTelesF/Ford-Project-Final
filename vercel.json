@@ -5,7 +5,7 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "outputDirectory": "dist/ford-project-final/browser"
+        "outputDirectory": "dist/ford-project-final"
       }
     },
     {
@@ -20,7 +20,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "dist/ford-project-final/browser/$1"
+      "dest": "/$1"
     }
   ]
 }
