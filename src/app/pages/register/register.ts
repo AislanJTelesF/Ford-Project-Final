@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SuccessDialogComponent } from '../../success-dialog.component/success-dialog.component';
 import { Autentication } from '../../autentication/autentication';
-import { SideBar } from '../../side-bar/side-bar'; // Importe o SideBar
+import { SideBar } from '../../side-bar/side-bar';
 
 export function passwordsMatchValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -40,7 +40,7 @@ export function passwordsMatchValidator(): ValidatorFn {
     FormsModule,
     RouterModule,
     MatDialogModule,
-    SideBar // Adicione SideBar aqui
+    SideBar
   ],
 })
 export class RegisterComponent {
@@ -58,7 +58,9 @@ export class RegisterComponent {
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
+      confirmPassword: ['', [Validators.required]],
+      termsAccepted: [false, Validators.requiredTrue], // NOVO: Checkbox de termos (obrigatório)
+      receivePromotions: [false] // NOVO: Checkbox de promoções (opcional)
     }, { validators: passwordsMatchValidator() });
   }
 
@@ -67,13 +69,16 @@ export class RegisterComponent {
     this.passwordMismatch = false;
 
     if (this.registerForm.invalid) {
+      // Marcar todos os campos como 'touched' para exibir mensagens de erro
+      this.registerForm.markAllAsTouched();
       if (this.registerForm.errors?.['passwordsMismatch']) {
         this.passwordMismatch = true;
       }
       return;
     }
 
-    const { username, email, password } = this.registerForm.value;
+    // Desestruturar os novos campos
+    const { username, email, password, termsAccepted, receivePromotions } = this.registerForm.value;
 
     this.autenticationService.register(username, password, email).subscribe(
       (response) => {
