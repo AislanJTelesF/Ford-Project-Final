@@ -12,7 +12,11 @@ app.get("/", (req, res) => {
   res.send("API da Ford está rodando 🚗✅");
 });
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 
 // Serve static files from the 'img' directory relative to this api/index.js file
