@@ -122,3 +122,62 @@
   }
 }
 
+/* Estilos para o botão Voltar ao Topo (NOVO) */
+.back-to-top-button {
+  position: fixed; /* Posição fixa na tela */
+  bottom: 20px; /* 20px da parte inferior */
+  right: 20px; /* 20px da direita */
+  background-color: var(--primary-color); /* Cor primária */
+  color: white; /* Cor do ícone/texto */
+  border: none;
+  border-radius: 50%; /* Botão redondo */
+  width: 50px; /* Largura */
+  height: 50px; /* Altura */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em; /* Tamanho do ícone */
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transição suave */
+  z-index: 100; /* Garante que fique acima de outros elementos */
+}
+
+.back-to-top-button:hover {
+  background-color: var(--primary-color); /* Mantém a cor ou um tom mais escuro no hover */
+  transform: translateY(-3px); /* Efeito de "subir" no hover */
+}
+
+.back-to-top-button mat-icon {
+  color: white; /* Garante que o ícone seja branco */
+}
+
+/* Adaptação para telas menores (responsividade) */
+@media screen and (max-width: 768px) {
+  .timeline::after {
+    left: 31px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+  .timeline-item.right {
+    left: 0%;
+  }
+
+  .timeline-item::after {
+    left: 15px;
+  }
+
+  /* Ajuste do botão Voltar ao Topo para telas menores */
+  .back-to-top-button {
+    width: 45px;
+    height: 45px;
+    bottom: 15px;
+    right: 15px;
+    font-size: 1.2em;
+  }
+}

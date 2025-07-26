@@ -3,13 +3,13 @@
 <app-side-bar></app-side-bar>
 
 <div class="container">
-  <!-- Carousel Section (existing) -->
+  <!-- Carousel Section -->
   <main>
     <div id="carousel" class="carousel position-relative text-center">
       <div class="carousel__slide">
         <img id="carousel__imagem" [src]="carousel[currentIndex].imagem" alt="Imagem do Carrossel" class="img-fluid"/>
         <div class="carousel__legenda mt-3">
-          <p id="carousel__paragrafo">{{ carousel[currentIndex].texto }}</p>
+          <h4 id="carousel__paragrafo" class="text-primary">{{ carousel[currentIndex].texto }}</h4>
         </div>
       </div>
       <button class="anterior btn btn-light position-absolute start-0 top-50 translate-middle-y"
@@ -19,7 +19,7 @@
     </div>
   </main>
 
-  <!-- Timeline Section (NEW) -->
+  <!-- Timeline Section -->
   <section class="timeline-section py-5">
     <h2 class="text-center text-primary mb-5">Nossa História: Uma Linha do Tempo Ford</h2>
     <div class="timeline">
@@ -41,3 +41,9 @@
     </div>
   </section>
 
+</div>
+
+<!-- Botão Voltar ao Topo (NOVO) -->
+<button *ngIf="showScrollToTopButton" class="back-to-top-button" (click)="scrollToTop()">
+  <mat-icon>arrow_upward</mat-icon>
+</button>
