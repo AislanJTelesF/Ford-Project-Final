@@ -1,1 +1,18 @@
+<!-- src/app/app.component.html -->
+
+<!-- REMOVIDO: Botão de alternância do Dark Mode -->
+<!--
+<button class="dark-mode-toggle" (click)="toggleDarkMode()">
+  <mat-icon *ngIf="!(isDarkMode$ | async)">dark_mode</mat-icon>
+  <mat-icon *ngIf="(isDarkMode$ | async)">light_mode</mat-icon>
+</button>
+-->
+
+<!-- Elemento para exibir o nome do usuário logado (mantido) -->
+<div class="user-status" *ngIf="isLoggedIn$ | async">
+  <span class="user-name">{{ currentUser$ | async }}</span>
+  <mat-icon class="verified-icon">verified</mat-icon>
+</div>
+
+<!-- O conteúdo principal do seu aplicativo Angular, por exemplo, o router-outlet -->
 <router-outlet></router-outlet>

@@ -1,47 +1,45 @@
 // app/autentication/autentication.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, catchError, of, BehaviorSubject } from 'rxjs'; // Import BehaviorSubject
+import { Observable, map, catchError, of, BehaviorSubject } from 'rxjs';
+import { Usuario } from '../models/usuario.model'; // CORRIGIDO: Importa a interface Usuario
 
 @Injectable({
   providedIn: 'root',
 })
 export class Autentication {
   private apiUrl = 'http://localhost:3001';
-  // BehaviorSubject para rastrear o estado de login.
-  // Começa como 'false' (não logado) por padrão.
-  // CORRIGIDO: Removido 'new' duplicado.
-  private _isLoggedIn = new BehaviorSubject<boolean>(false);
 
-  // Observable público para que outros componentes possam se inscrever no estado de login
+  private _isLoggedIn = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this._isLoggedIn.asObservable();
 
-  constructor(private http: HttpClient) {
-    // Opcional: Você pode verificar o status de login inicial aqui,
-    // por exemplo, se houver um token de autenticação no localStorage.
-    // Por simplicidade, começamos com false.
-  }
+  private _currentUser = new BehaviorSubject<string | null>(null);
+  currentUser$ = this._currentUser.asObservable();
+
+  constructor(private http: HttpClient) {}
 
   login(user: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, {
+    // CORRIGIDO: Tipando a resposta esperada da requisição HTTP como Usuario
+    return this.http.post<Usuario>(`${this.apiUrl}/login`, {
       nome: user,
       senha: password,
     }).pipe(
-      map((res) => {
-        // Se o login for bem-sucedido, atualiza o estado de login
+      map((res: Usuario) => { // CORRIGIDO: Tipando 'res' explicitamente como Usuario
         this._isLoggedIn.next(true);
+        this._currentUser.next(res.nome); // 'nome' existe em Usuario
         return { success: true, user: res };
       }),
       catchError((error) => {
         console.error('Login failed', error);
-        // Se o login falhar, garante que o estado de login seja false
         this._isLoggedIn.next(false);
+        this._currentUser.next(null);
         return of({ success: false, error: error.error.message });
       })
     );
   }
 
   register(user: string, password: string, email: string): Observable<any> {
+    // Manter como está, pois a API de registro retorna o usuário completo, incluindo senha
     return this.http.post(`${this.apiUrl}/register`, {
       nome: user,
       senha: password,
@@ -57,15 +55,12 @@ export class Autentication {
     );
   }
 
-  // Novo método para definir o estado de login (útil para logout)
   setLoggedIn(status: boolean): void {
     this._isLoggedIn.next(status);
   }
 
-  // Novo método para logout
   logout(): void {
-    // Limpar qualquer token ou dado de sessão se houver
-    // Ex: localStorage.removeItem('authToken');
-    this._isLoggedIn.next(false); // Define o estado de login como falso
+    this._isLoggedIn.next(false);
+    this._currentUser.next(null);
   }
 }
