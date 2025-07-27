@@ -11,6 +11,16 @@ import { SideBar } from '../../side-bar/side-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from '../../success-dialog.component/success-dialog.component';
 
+// REMOVIDO: Importações do Firebase
+// import { initializeApp } from 'firebase/app';
+// import { getFirestore, collection, addDoc } from 'firebase/firestore';
+// import { getAuth, signInWithCustomToken, signInAnonymously } from 'firebase/auth';
+
+// REMOVIDO: Declaração das variáveis globais do Firebase
+// declare const __app_id: string;
+// declare const __firebase_config: string;
+// declare const __initial_auth_token: string;
+
 @Component({
   selector: 'app-visita',
   standalone: true,
@@ -27,7 +37,7 @@ import { SuccessDialogComponent } from '../../success-dialog.component/success-d
   templateUrl: './visita.html',
   styleUrls: ['./visita.css']
 })
-export class Visita implements OnInit {
+export class VisitaComponent implements OnInit {
   visitForm!: FormGroup;
 
   stores: string[] = [
@@ -44,30 +54,113 @@ export class Visita implements OnInit {
 
   minDate: Date;
 
+  // REMOVIDO: Propriedades do Firebase
+  // private db: any;
+  // private auth: any;
+  // private appId: string;
+  // private userId: string | null = null;
+
   constructor(private fb: FormBuilder, private dialog: MatDialog) {
     this.minDate = new Date();
+    // REMOVIDO: Inicialização de appId
+    // this.appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.visitForm = this.fb.group({
+      fullName: ['', Validators.required], // NOVO: Campo de nome completo com validação
       date: [null, Validators.required],
       time: ['', Validators.required],
       store: ['', Validators.required],
       requests: ['']
     });
+
+    // REMOVIDO: Inicialização do Firebase
+    /*
+    try {
+      let firebaseConfig;
+      if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+        firebaseConfig = JSON.parse(__firebase_config);
+      } else {
+        console.error('Erro: __firebase_config não fornecida ou vazia. O Firebase não pode ser inicializado.');
+        this.dialog.open(SuccessDialogComponent, {
+          data: { message: 'Erro: Configuração do Firebase ausente. Agendamento indisponível.', type: 'error' }
+        });
+        return;
+      }
+
+      const app = initializeApp(firebaseConfig);
+      this.db = getFirestore(app);
+      this.auth = getAuth(app);
+
+      if (typeof __initial_auth_token !== 'undefined') {
+        await signInWithCustomToken(this.auth, __initial_auth_token);
+      } else {
+        await signInAnonymously(this.auth);
+      }
+
+      this.userId = this.auth.currentUser?.uid || crypto.randomUUID();
+      console.log('Firebase initialized. User ID:', this.userId);
+
+    } catch (error) {
+      console.error('Erro ao inicializar o Firebase:', error);
+      this.dialog.open(SuccessDialogComponent, {
+        data: { message: 'Erro ao inicializar o Firebase. Verifique sua conexão e tente novamente.', type: 'error' }
+      });
+    }
+    */
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.visitForm.valid) {
-      console.log('Dados do agendamento:', this.visitForm.value);
-      // Abre o pop-up de sucesso com uma mensagem dinâmica e tipo 'schedule'
+      // REMOVIDO: Verificação de db e userId
+      /*
+      if (!this.db || !this.userId) {
+        this.dialog.open(SuccessDialogComponent, {
+          data: { message: 'Erro: Firebase não inicializado ou usuário não autenticado. Tente recarregar a página.', type: 'error' }
+        });
+        return;
+      }
+      */
+
+      const formData = this.visitForm.value;
+      const visitData = {
+        fullName: formData.fullName, // NOVO: Inclui o nome completo nos dados a serem "salvos" (apenas logados)
+        date: formData.date.toISOString().split('T')[0],
+        time: formData.time,
+        store: formData.store,
+        requests: formData.requests,
+        // REMOVIDO: userId e createdAt
+        // userId: this.userId,
+        // createdAt: new Date().toISOString()
+      };
+
+      console.log('Dados do agendamento:', visitData); // Apenas loga os dados no console
+
+      // REMOVIDO: Lógica de salvamento no Firebase
+      /*
+      try {
+        const docRef = await addDoc(collection(this.db, `artifacts/${this.appId}/public/data/visits`), visitData);
+        console.log('Visita agendada com sucesso com ID:', docRef.id);
+      } catch (error) {
+        console.error('Erro ao agendar visita:', error);
+        this.dialog.open(SuccessDialogComponent, {
+          data: { message: 'Erro ao agendar visita. Tente novamente mais tarde.', type: 'error' }
+        });
+        return; // Retorna para não limpar o formulário em caso de erro de persistência
+      }
+      */
+
       this.dialog.open(SuccessDialogComponent, {
         data: { message: 'Visita agendada com sucesso!', type: 'schedule' }
       }).afterClosed().subscribe(() => {
         this.visitForm.reset();
+        this.visitForm.get('date')?.setValue(null);
+        this.visitForm.get('time')?.setValue('');
+        this.visitForm.get('store')?.setValue('');
       });
+
     } else {
-      // Abre o pop-up de erro/alerta com uma mensagem dinâmica e tipo 'error'
       this.dialog.open(SuccessDialogComponent, {
         data: { message: 'Por favor, preencha todos os campos obrigatórios.', type: 'error' }
       });

@@ -45,7 +45,7 @@ export const routes: Routes = [
   {
     path: 'visita',
     loadComponent: () =>
-      import('./pages/visita/visita').then((m) => m.Visita),
+      import('./pages/visita/visita').then((m) => m.VisitaComponent),
     title: 'Visitar Loja',
     canActivate: [AuthGuard]
   },
