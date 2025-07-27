@@ -1,26 +1,24 @@
 // app/pages/comparacao/comparacao.component.ts
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Necessário para *ngIf e *ngFor
-import { MatIconModule } from '@angular/material/icon'; // Se usar ícones Material
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 import { Carro } from '../../models/carro.model';
-import { SideBar } from '../../side-bar/side-bar'; // Importa a SideBar
+import { SideBar } from '../../side-bar/side-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ComparacaoResultsDialogComponent } from './comparacao-results-dialog/comparacao-results-dialog';
 
 @Component({
   selector: 'app-comparacao',
   standalone: true,
-  imports: [CommonModule, MatIconModule, SideBar], // Adicione MatIconModule e SideBar
+  imports: [CommonModule, MatIconModule, SideBar],
   templateUrl: './comparacao.html',
-  styleUrls: ['./comparacao.css'] // Você pode criar este arquivo CSS
+  styleUrls: ['./comparacao.css']
 })
 export class ComparacaoComponent implements OnInit {
-  // Array para armazenar os carros selecionados para comparação
   selectedCars: Carro[] = [];
-  // Propriedade para controlar a visibilidade da tabela de comparação
   showCompareTable: boolean = false;
-  // Mensagens de erro/alerta para o usuário
   alertMessage: string | null = null;
 
-  // Lista completa de carros para seleção
   availableCars: Carro[] = [
     {
       nome: 'XL Cabine Simples 2.2 Diesel 4X4 MT 2022',
@@ -33,7 +31,7 @@ export class ComparacaoComponent implements OnInit {
       potencia: 160,
       volumeCacamba: 1420,
       roda: 'Aço Estampado 16',
-      image: 'assets/img/XL Cabine.jpg' // Caminho atualizado
+      image: 'assets/img/XL Cabine.jpg'
     },
     {
       nome: 'XLS 2.2 Diesel 4X4 AT 2022',
@@ -46,7 +44,7 @@ export class ComparacaoComponent implements OnInit {
       potencia: 160,
       volumeCacamba: 1180,
       roda: 'Aço Estampado 16',
-      image: 'assets/img/xls 2.2 diesel.jpg' // Caminho atualizado
+      image: 'assets/img/xls 2.2 diesel.jpg'
     },
     {
       nome: 'Storm 3.2 Diesel 4X4 AT 2022',
@@ -59,26 +57,29 @@ export class ComparacaoComponent implements OnInit {
       potencia: 200,
       volumeCacamba: 1180,
       roda: 'Liga Leve 17',
-      image: 'assets/img/storm.jpg' // Caminho atualizado
+      image: 'assets/img/storm.jpg'
     }
   ];
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    // Inicializa a tabela de comparação como escondida
     this.showCompareTable = false;
   }
 
-  // Adiciona ou remove um carro da lista de comparação
+  // NOVO MÉTODO: Verifica se o carro está no array de carros selecionados
+  isChecked(car: Carro): boolean {
+    return this.selectedCars.some(selected => selected.nome === car.nome);
+  }
+
   setCarToCompare(event: Event, car: Carro): void {
     const checkbox = event.target as HTMLInputElement;
-    this.alertMessage = null; // Limpa mensagens de alerta anteriores
+    this.alertMessage = null;
 
     if (checkbox.checked) {
       if (this.selectedCars.length >= 2) {
         this.alertMessage = "Você só pode comparar 2 carros.";
-        checkbox.checked = false; // Desmarca o checkbox
+        checkbox.checked = false;
         return;
       }
       this.selectedCars.push(car);
@@ -90,20 +91,18 @@ export class ComparacaoComponent implements OnInit {
     }
   }
 
-  // Exibe a tabela de comparação
   showCompare(): void {
     if (this.selectedCars.length < 2) {
       this.alertMessage = "Precisa marcar 2 carros para apresentar a comparação.";
       return;
     }
-    this.showCompareTable = true;
     this.alertMessage = null;
-  }
 
-  // Esconde a tabela de comparação
-  hideCompare(): void {
-    this.showCompareTable = false;
-    this.alertMessage = null;
+    this.dialog.open(ComparacaoResultsDialogComponent, {
+      data: this.selectedCars,
+      width: '90%',
+      maxWidth: '1000px',
+      panelClass: 'custom-comparison-dialog'
+    });
   }
 }
-

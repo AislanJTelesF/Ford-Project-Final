@@ -1,12 +1,14 @@
 <!-- app/pages/comparacao/comparacao.component.html -->
 
-<!-- Inclui a barra lateral -->
 <app-side-bar></app-side-bar>
 
 <div class="container mt-5 pt-5">
   <h1 class="text-center text-primary mb-4">Comparar Carros</h1>
 
-  <h4 class="text-center">Nessa página é possível obter mais informações sobre o modelo de carros para que seja possível uma comparação entre eles.</h4>
+  <!-- NOVO: Pequeno texto descritivo -->
+  <h4 class="text-center text-muted mb-5">
+    Selecione dois modelos Ford para ver suas especificações lado a lado e descobrir qual se encaixa melhor nas suas necessidades.
+  </h4>
 
   <!-- Mensagens de alerta/erro -->
   <div *ngIf="alertMessage" class="alert alert-warning text-center" role="alert">
@@ -23,10 +25,9 @@
           <p class="card-text text-center">Preço Sugerido: R$ {{ car.preco | number:'1.2-2':'pt' }}</p>
           <div class="d-flex justify-content-center align-items-center mt-auto">
             <input type="checkbox" class="form-check-input me-2"
-                   (change)="setCarToCompare($event, car)">
+                   (change)="setCarToCompare($event, car)"
+                   [checked]="isChecked(car)"> <!-- CORRIGIDO: Chamando o novo método isChecked(car) -->
             <label class="form-check-label">Comparar</label>
-            <!-- Você pode adicionar um botão de informação aqui se tiver uma lógica para ele -->
-            <!-- <img src="assets/img/info.png" alt="Info" class="ms-2" style="width: 20px; height: 20px;"> -->
           </div>
         </div>
       </div>
@@ -36,73 +37,5 @@
   <!-- Botão para mostrar a comparação -->
   <div class="text-center mb-5">
     <button type="button" class="btn btn-primary" (click)="showCompare()">Comparar Carros Selecionados</button>
-  </div>
-
-  <!-- Tabela de Comparação (visível apenas se showCompareTable for true) -->
-  <div id="compare" *ngIf="showCompareTable" class="table-responsive mb-5">
-    <table class="table table-bordered text-center">
-      <thead class="table-primary">
-        <tr>
-          <th>Característica</th>
-          <th *ngIf="selectedCars[0]">{{ selectedCars[0].nome }}</th>
-          <th *ngIf="selectedCars[1]">{{ selectedCars[1].nome }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Imagem</td>
-          <td *ngIf="selectedCars[0]"><img [src]="selectedCars[0].image" width="150" alt="{{ selectedCars[0].nome }}"></td>
-          <td *ngIf="selectedCars[1]"><img [src]="selectedCars[1].image" width="150" alt="{{ selectedCars[1].nome }}"></td>
-        </tr>
-        <tr>
-          <td>Preço</td>
-          <td *ngIf="selectedCars[0]">R$ {{ selectedCars[0].preco | number:'1.2-2':'pt' }}</td>
-          <td *ngIf="selectedCars[1]">R$ {{ selectedCars[1].preco | number:'1.2-2':'pt' }}</td>
-        </tr>
-        <tr>
-          <td>Altura da caçamba</td>
-          <td *ngIf="selectedCars[0]">{{ selectedCars[0].alturaCacamba }}mm</td>
-          <td *ngIf="selectedCars[1]">{{ selectedCars[1].alturaCacamba }}mm</td>
-        </tr>
-        <tr>
-          <td>Altura do veículo</td>
-          <td *ngIf="selectedCars[0]">{{ selectedCars[0].alturaVeiculo }}mm</td>
-          <td *ngIf="selectedCars[1]">{{ selectedCars[1].alturaVeiculo }}mm</td>
-        </tr>
-        <tr>
-          <td>Altura livre do solo</td>
-          <td *ngIf="selectedCars[0]">{{ selectedCars[0].alturaSolo }}mm</td>
-          <td *ngIf="selectedCars[1]">{{ selectedCars[1].alturaSolo }}mm</td>
-        </tr>
-        <tr>
-          <td>Capacidade de carga</td>
-          <td *ngIf="selectedCars[0]">{{ selectedCars[0].capacidadeCarga }}Kg</td>
-          <td *ngIf="selectedCars[1]">{{ selectedCars[1].capacidadeCarga }}Kg</td>
-        </tr>
-        <tr>
-          <td>Motor</td>
-          <td *ngIf="selectedCars[0]">{{ selectedCars[0].motor }}L</td>
-          <td *ngIf="selectedCars[1]">{{ selectedCars[1].motor }}L</td>
-        </tr>
-        <tr>
-          <td>Potência</td>
-          <td *ngIf="selectedCars[0]">{{ selectedCars[0].potencia }}cv</td>
-          <td *ngIf="selectedCars[1]">{{ selectedCars[1].potencia }}cv</td>
-        </tr>
-        <tr>
-          <td>Volume de caçamba</td>
-          <td *ngIf="selectedCars[0]">{{ selectedCars[0].volumeCacamba }}L</td>
-          <td *ngIf="selectedCars[1]">{{ selectedCars[1].volumeCacamba }}L</td>
-        </tr>
-        <tr>
-          <td>Roda</td>
-          <td *ngIf="selectedCars[0]">{{ selectedCars[0].roda }}</td>
-          <td *ngIf="selectedCars[1]">{{ selectedCars[1].roda }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="text-center mt-3">
-      <button type="button" class="btn btn-secondary" (click)="hideCompare()">Fechar Comparação</button>
-    </div>
   </div>
 </div>

@@ -1,0 +1,33 @@
+<!-- app/pages/dashboard/vin-data-dialog/vin-data-dialog.component.html -->
+<h2 mat-dialog-title style="text-align: center;">Dados do Veículo (VIN)</h2>
+
+<mat-dialog-content>
+  <div class="table-responsive">
+    <table class="table table-bordered text-center">
+      <thead class="table-primary">
+        <tr>
+          <th><mat-icon>tag</mat-icon> Id</th>
+          <th><mat-icon>speed</mat-icon> Odômetro</th>
+          <th><mat-icon>local_gas_station</mat-icon> Nível de Combustível</th>
+          <th><mat-icon>power_settings_new</mat-icon> Status</th>
+          <th><mat-icon>location_on</mat-icon> Lat.</th>
+          <th><mat-icon>location_on</mat-icon> Long.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ data?.id || '-' }}</td>
+          <td>{{ data?.odometro || '-' }}</td>
+          <td>{{ data?.nivelCombustivel || '-' }}</td>
+          <td>{{ data?.status || '-' }}</td>
+          <td>{{ data?.lat || '-' }}</td>
+          <td>{{ data?.long || '-' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Fechar</button>
+</mat-dialog-actions>

@@ -1,0 +1,23 @@
+/* app/pages/comparacao/comparacao-results-dialog/comparacao-results-dialog.component.css */
+.mat-dialog-container {
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+th, td {
+  padding: 12px;
+  vertical-align: middle;
+}
+
+th {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}

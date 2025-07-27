@@ -1,3 +1,4 @@
+// app/pages/dashboard/dashboard.ts
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SideBar } from '../../side-bar/side-bar';
 import { DashboardService } from '../../services/dashboardService';
@@ -8,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { CarroVin } from '../../utils/carroVinInterface';
 import { Subscription } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { VinDataDialogComponent } from './vin-data-dialog/vin-data-dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,18 +24,18 @@ export class Dashboard implements OnInit, OnDestroy {
   selectedVehicle!: Veiculo;
   vehicleData!: VehicleData;
 
-  carroVin!: CarroVin;
   reqVin!: Subscription;
 
   selectCarForms = new FormGroup({
     carId: new FormControl(''),
   });
 
+  // CORRIGIDO: Removido 'new' duplicado
   vinForm = new FormGroup({
     vin: new FormControl(''),
   });
 
-  constructor(private dashboardservice: DashboardService) {}
+  constructor(private dashboardservice: DashboardService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.dashboardservice
@@ -46,12 +49,15 @@ export class Dashboard implements OnInit, OnDestroy {
       if (selected) this.selectedVehicle = selected;
     });
 
-    this.vinForm.controls.vin.valueChanges.subscribe((valor) => {
-      this.reqVin = this.dashboardservice
-        .buscarVin(valor as string)
-        .subscribe((res: CarroVin) => {
-          this.carroVin = res;
-        });
+    // CORRIGIDO: Tipagem explícita para 'valor'
+    this.vinForm.controls.vin.valueChanges.subscribe((valor: string | null) => {
+      if (valor && valor.length > 0) {
+        this.reqVin = this.dashboardservice
+          .buscarVin(valor as string)
+          .subscribe((res: CarroVin) => {
+            this.openVinDataDialog(res);
+          });
+      }
     });
   }
 
@@ -59,15 +65,20 @@ export class Dashboard implements OnInit, OnDestroy {
     if (this.reqVin) this.reqVin.unsubscribe();
   }
 
-  onSearchVin(): void {
-  const vin = this.vinForm.controls.vin.value;
-  if (vin) {
-    this.reqVin = this.dashboardservice.buscarVin(vin).subscribe((res: CarroVin) => {
-      this.carroVin = res;
+  openVinDataDialog(data: CarroVin): void {
+    this.dialog.open(VinDataDialogComponent, {
+      data: data,
+      width: '600px',
+      panelClass: 'custom-dialog-container'
     });
   }
+
+  onSearchVin(): void {
+    const vin = this.vinForm.controls.vin.value;
+    if (vin) {
+      this.reqVin = this.dashboardservice.buscarVin(vin).subscribe((res: CarroVin) => {
+        this.openVinDataDialog(res);
+      });
+    }
+  }
 }
-
-
-}
-

@@ -1,3 +1,5 @@
+<!-- app/pages/dashboard/dashboard.html -->
+
 <app-side-bar></app-side-bar>
 
 <!-- Main Container -->
@@ -5,7 +7,7 @@
   <div class="d-flex flex-column align-items-center">
     <h1 class="text-primary">Dashboard FORD</h1>
 
-    <h4 class="">Selecione um veículo abaixo para explorar dados de vendas, conectividade e atualizações. </h4>
+    <h4 class="text-center text-muted mb-5">Explore dados detalhados e informações de veículos Ford. Selecione um modelo para ver suas estatísticas e insira um código VIN para consultar dados específicos do veículo.</h4>
   </div>
 
 
@@ -69,44 +71,20 @@
 
   <!-- Center Vehicle Image -->
   <div class="opacity-10 mt-5">
-    <img *ngIf="selectedVehicle" [src]="selectedVehicle.img" class="img-fluid d-block mx-auto w-50" alt="Veículo central">
+    <img *ngIf="selectedVehicle" [src]="selectedVehicle.img" class="img-fluid d-block mx-auto w-75" alt="Veículo central">
   </div>
 
- <form [formGroup]="vinForm" class="d-flex mb-3 mt-3">
-  <input
-    type="text"
-    class="form-control me-2 text-center text-primary"
-    [formControl]="vinForm.controls.vin"
-    placeholder="Insira o código VIN" style="width: 300px;"
-  />
-  <span class="input-group-text bg-primary text-white">
-      <mat-icon>search</mat-icon>
-    </span>
-</form>
+  <form [formGroup]="vinForm" class="d-flex mb-3 mt-3">
+    <input
+      type="text"
+      class="form-control me-2 text-center text-primary"
+      [formControl]="vinForm.controls.vin"
+      placeholder="Insira o código VIN" style="width: 300px;"
+    />
+    <span class="input-group-text bg-primary text-white">
+        <mat-icon>search</mat-icon>
+      </span>
+  </form>
 
-  <div class="container-fluid pt-5 mt-2">
-  <div class="table-responsive">
-    <table class="table table-bordered text-center">
-      <thead class="table-primary">
-        <tr>
-          <th>Id</th>
-          <th>Odômetro</th>
-          <th>Nível de Combustível</th>
-          <th>Status</th>
-          <th>Lat.</th>
-          <th>Long.</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ carroVin?.id || '-' }}</td>
-          <td>{{ carroVin?.odometro || '-' }}</td>
-          <td>{{ carroVin?.nivelCombustivel || '-' }}</td>
-          <td>{{ carroVin?.status || '-' }}</td>
-          <td>{{ carroVin?.lat || '-' }}</td>
-          <td>{{ carroVin?.long || '-' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- REMOVIDO: A tabela de dados VIN não está mais aqui, será exibida em um diálogo -->
 </div>

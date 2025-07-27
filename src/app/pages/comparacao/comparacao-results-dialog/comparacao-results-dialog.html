@@ -1,0 +1,72 @@
+<!-- app/pages/comparacao/comparacao-results-dialog/comparacao-results-dialog.component.html -->
+<h2 mat-dialog-title style="text-align: center;">Comparação de Carros</h2>
+
+<mat-dialog-content>
+  <div class="table-responsive">
+    <table class="table table-bordered text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>Característica</th>
+          <th *ngIf="data[0]">{{ data[0].nome }}</th>
+          <th *ngIf="data[1]">{{ data[1].nome }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Imagem</td>
+          <td *ngIf="data[0]"><img [src]="data[0].image" width="150" alt="{{ data[0].nome }}"></td>
+          <td *ngIf="data[1]"><img [src]="data[1].image" width="150" alt="{{ data[1].nome }}"></td>
+        </tr>
+        <tr>
+          <td>Preço</td>
+          <td *ngIf="data[0]">R$ {{ data[0].preco | number:'1.2-2':'pt' }}</td>
+          <td *ngIf="data[1]">R$ {{ data[1].preco | number:'1.2-2':'pt' }}</td>
+        </tr>
+        <tr>
+          <td>Altura da caçamba</td>
+          <td *ngIf="data[0]">{{ data[0].alturaCacamba }}mm</td>
+          <td *ngIf="data[1]">{{ data[1].alturaCacamba }}mm</td>
+        </tr>
+        <tr>
+          <td>Altura do veículo</td>
+          <td *ngIf="data[0]">{{ data[0].alturaVeiculo }}mm</td>
+          <td *ngIf="data[1]">{{ data[1].alturaVeiculo }}mm</td>
+        </tr>
+        <tr>
+          <td>Altura livre do solo</td>
+          <td *ngIf="data[0]">{{ data[0].alturaSolo }}mm</td>
+          <td *ngIf="data[1]">{{ data[1].alturaSolo }}mm</td>
+        </tr>
+        <tr>
+          <td>Capacidade de carga</td>
+          <td *ngIf="data[0]">{{ data[0].capacidadeCarga }}Kg</td>
+          <td *ngIf="data[1]">{{ data[1].capacidadeCarga }}Kg</td>
+        </tr>
+        <tr>
+          <td>Motor</td>
+          <td *ngIf="data[0]">{{ data[0].motor }}L</td>
+          <td *ngIf="data[1]">{{ data[1].motor }}L</td>
+        </tr>
+        <tr>
+          <td>Potência</td>
+          <td *ngIf="data[0]">{{ data[0].potencia }}cv</td>
+          <td *ngIf="data[1]">{{ data[1].potencia }}cv</td>
+        </tr>
+        <tr>
+          <td>Volume de caçamba</td>
+          <td *ngIf="data[0]">{{ data[0].volumeCacamba }}L</td>
+          <td *ngIf="data[1]">{{ data[1].volumeCacamba }}L</td>
+        </tr>
+        <tr>
+          <td>Roda</td>
+          <td *ngIf="data[0]">{{ data[0].roda }}</td>
+          <td *ngIf="data[1]">{{ data[1].roda }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Fechar</button>
+</mat-dialog-actions>
